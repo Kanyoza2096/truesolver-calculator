@@ -32,21 +32,7 @@ You can use Truesolver Calculator in two ways:
    - Select "Install app" or "Add to Home Screen"
    - The app will now be available as a standalone application on your device
 
-## Development
 
-```bash
-# Clone the repository
-git clone https://github.com/Kanyoza2096/truesolver-calculator.git
-
-# Navigate to the project directory
-cd truesolver-calculator
-
-# Install dependencies
-npm install
-
-# Start the development server
-npm run dev
-```
 
 ## License
 
