@@ -31,7 +31,12 @@ jobs:
         run: npm install -g @capacitor/cli
 
       - name: Add Android platform (if not already added)
-        run: npx cap add android || echo "Android platform already added"
+        run: |
+          if [ ! -d "android" ]; then
+            npx cap add android
+          else
+            echo "Android platform already added"
+          fi
 
       - name: Copy web assets to Android project
         run: npx cap copy android
