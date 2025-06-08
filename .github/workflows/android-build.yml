@@ -24,37 +24,23 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # If using Expo, you can use expo-github-action
-      # - name: Install Expo CLI
-      #   run: npm install -g expo-cli
+      - name: Build web app
+        run: npm run build
 
-      # - name: Build Android APK
-      #   run: expo build:android --non-interactive
+      - name: Install Capacitor CLI
+        run: npm install -g @capacitor/cli
 
-      # If using React Native CLI, set up Android SDK and build
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
+      - name: Add Android platform (if not already added)
+        run: npx cap add android || echo "Android platform already added"
 
-      - name: Cache Gradle packages
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+      - name: Copy web assets to Android project
+        run: npx cap copy android
 
-      - name: Build Android app (if using React Native CLI)
+      - name: Build Android APK with Capacitor
         run: |
           cd android
           ./gradlew assembleRelease
-        continue-on-error: true
 
-      # Upload APK as artifact (if built)
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
